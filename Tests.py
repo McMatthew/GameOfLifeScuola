@@ -10,6 +10,29 @@ class GameOfLifeTests(unittest.TestCase):
 
         self.assertFalse(World.IsCellAlive(0, 0))
 
+    def test_OneCellAliveWithMoreThanThreeNeighbour_CellDieForOverpopulation(self):
+        World = UWorld()
+        World.AddCell(0, 0)
+        World.AddCell(0, 1)
+        World.AddCell(0, 2)
+        World.AddCell(1, 1)
+        World.AddCell(1, 2)
+
+        World.NextGeneration()
+
+        self.assertFalse(World.IsCellAlive(0, 1))
+
+    def test_OneCellAliveWithThreeNeighbour_CellSurvive(self):
+        World = UWorld()
+        World.AddCell(0, 0)
+        World.AddCell(0, 1)
+        World.AddCell(1, 0)
+        World.AddCell(1, 1)
+
+        World.NextGeneration()
+
+        self.assertTrue(World.IsCellAlive(0, 1))
+
 if __name__ == '__main__':
     os.system('clear')
     unittest.main()
